@@ -100,7 +100,7 @@ namespace HomeApi.Controllers
         /// <summary>
         /// Обновление существующего устройства
         /// </summary>
-        [HttpPost]
+        [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> Delete(
             [FromRoute] Guid id)
@@ -112,12 +112,8 @@ namespace HomeApi.Controllers
             if (device == null)
                 return StatusCode(400, $"Ошибка: Устройство с идентификатором {id} не существует.");
 
-            
-            //await _devices.UpdateDevice(
-            //    device,
-            //    room,
-            //    new UpdateDeviceQuery(request.NewName, request.NewSerial)
-            //);
+
+            await _devices.DeleteDevice(device);
 
             return StatusCode(200, $"Устройство УДАЛЕНО! Имя - {device.Name}, Серийный номер - {device.SerialNumber},  Комната подключения - {device.Room.Name}");
         }
