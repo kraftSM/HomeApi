@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
+using HomeApi.Contracts.Models.Devices;
 using HomeApi.Contracts.Models.Rooms;
 using HomeApi.Data.Models;
 using HomeApi.Data.Repos;
@@ -22,9 +23,23 @@ namespace HomeApi.Controllers
             _repository = repository;
             _mapper = mapper;
         }
-        
+
         //TODO: Задание - добавить метод на получение всех существующих комнат
-        
+        [HttpGet]
+        [Route("")]
+        public async Task<IActionResult> GetRooms()
+        {
+            var rooms = await _repository.GetRooms();
+
+            var resp = new GetRoomsResponse
+            {
+                RoomAmount = rooms.Length,//_mapper.Map<Device[], DeviceView[]>(devices)
+                Rooms = _mapper.Map<Room[], RoomView[]>(rooms)
+            };
+
+            return StatusCode(200, resp);
+        }
+
         /// <summary>
         /// Добавление комнаты
         /// </summary>
