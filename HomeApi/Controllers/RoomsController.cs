@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using HomeApi.Contracts.Models.Devices;
 using HomeApi.Contracts.Models.Rooms;
 using HomeApi.Data.Models;
+using HomeApi.Data.Queries;
 using HomeApi.Data.Repos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,6 +58,35 @@ namespace HomeApi.Controllers
             }
             
             return StatusCode(409, $"Ошибка: Комната {request.Name} уже существует.");
+        }
+        /// <summary>
+        /// Обновление существующей комнаты
+        /// </summary>
+        [HttpPatch]
+        [Route("{id}")]
+        public async Task<IActionResult> Edit(
+            [FromRoute] Guid id,
+            [FromBody] EditRoomRequest request)
+        {
+            var room = await _repository.GetRoomByName(request.NewName);
+            if (room == null)
+                return StatusCode(400, $"Ошибка: Комната {request.NewName} не подключена. Сначала подключите комнату!");
+
+            //var device = await _devices.GetDeviceById(id);
+            //if (device == null)
+            //    return StatusCode(400, $"Ошибка: Устройство с идентификатором {id} не существует.");
+
+            //var withSameName = await _devices.GetDeviceByName(request.NewName);
+            //if (withSameName != null)
+            //    return StatusCode(400, $"Ошибка: Устройство с именем {request.NewName} уже подключено. Выберите другое имя!");
+
+            //await _devices.UpdateDevice(
+            //    device,
+            //    room,
+            //    new UpdateDeviceQuery(request.NewName, request.NewSerial)
+            //);
+
+            return StatusCode(200, $"Комната обновленf! Имя - {room.Name}, Территория номер - {room.Area}");
         }
     }
 }
