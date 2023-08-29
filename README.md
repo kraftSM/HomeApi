@@ -17,6 +17,7 @@
 - -  на уровне HomeApi.Data
     - Расширение в interface'ов:IDeviceRepository,IRoomRepository
     - Реализация в interface'ов в классах-репозитриях:DeviceRepository,RoomRepository
+    - - RoomRepository ЯВНАЯ обработка БУЛЕВЫХ значений
     - Реализация дополнительного  класса(ов) данных для обновления:UpdateDeviceQuery,UpdateRoomQuery     
     - -   Корректировка в interface IRoomRepository
     Task<Room[]> GetRooms();
@@ -24,12 +25,12 @@
 - -  на уровне  HomeApi.Contracts
     -  Реализация (для комнат) отображения Списка элементов: class GetRoomsResponse, из элеементов типа: class RoomView
     -  Реализация (для комнат) обновления:   class EditRoomRequest
-    -  Реализация (пользовательской валидации вводимых данных):добавялен class EditRoomRequestValidator -  не работает пока для BOOL = FALSE 
+    -  Реализация (пользовательской валидации вводимых данных):добавлен class EditRoomRequestValidator - в нем, особая валидация BOOL = FALSE (или пусто), закрываемая значениями по умолчанию
 - -  на уровне  HomeApi - [целевое приложение]
 - - -  модификация  class DevicesController :
     -    добавление поддержки запроса на удаление async Task<IActionResult> Delete(  [FromRoute] Guid id)
 - - -  модификация  class RoomsController :
     -  добавление поддержки запроса на получение списка  async Task<IActionResult> GetRooms()
-    -  добавление поддержки запроса на обление async Task<IActionResult> Edit([FromRoute] Guid id,[FromBody] EditRoomRequest request)
-    -  (-) добавление поддержки запроса на удаление комнат async Task<IActionResult> Delete(  [FromRoute] Guid id) не реализовывалось, чтобы не связываться на этом этапе с касдадным удалением ключей. т.к. в задании нет, а как сделать в общем то понятно, но должно быть некое решение на уровне архитектуры приложения, котогрого НЕТ ЯВНО
+    -  добавление поддержки запроса на обление async Task<IActionResult> Edit([FromRoute] Guid id,[FromBody] EditRoomRequest request) +(здесь Edit сделано как HttpPatch (not HttpPut), посколку всеже не все поля обновляются (??)) 
+    -  (-) добавление поддержки запроса на удаление комнат async Task<IActionResult> Delete(  [FromRoute] Guid id) не реализовывалось, чтобы не связываться на этом этапе с касдадным удалением ключей. т.к. в задании нет, а как сделать в общем то понятно, но должно быть некое решение на уровне архитектуры приложения, которого НЕТ ЯВНО
  
