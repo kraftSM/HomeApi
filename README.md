@@ -16,14 +16,14 @@
 - Соответсвенно в решение добавляется
 - -  на уровне HomeApi.Data
     - Расширение в interface'ов:IDeviceRepository,IRoomRepository
-    - Реализация в interface'ов в классах-репозитриях:DeviceRepository,RoomRepository
+    - Реализация в interface'ов в классах-репозиториях:DeviceRepository,RoomRepository
     - - RoomRepository ЯВНАЯ обработка БУЛЕВЫХ значений
     - Реализация дополнительного  класса(ов) данных для обновления:UpdateDeviceQuery,UpdateRoomQuery     
     - -   Корректировка в interface IRoomRepository
     Task<Room[]> GetRooms();
     Task<Room> GetRoomById(Guid id);
 - -  на уровне  HomeApi.Contracts
-    -  Реализация (для комнат) отображения Списка элементов: class GetRoomsResponse, из элеементов типа: class RoomView
+    -  Реализация (для комнат) отображения Списка элементов: class GetRoomsResponse, из элементов типа: class RoomView
     -  Реализация (для комнат) обновления:   class EditRoomRequest
     -  Реализация (пользовательской валидации вводимых данных):добавлен class EditRoomRequestValidator - в нем, особая валидация BOOL = FALSE (или пусто), закрываемая значениями по умолчанию
 - -  на уровне  HomeApi - [целевое приложение]
