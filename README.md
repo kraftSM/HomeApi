@@ -31,5 +31,5 @@
 - - -  модификация  class RoomsController :
     -  добавление поддержки запроса на получение списка  async Task<IActionResult> GetRooms()
     -  добавление поддержки запроса на обление async Task<IActionResult> Edit([FromRoute] Guid id,[FromBody] EditRoomRequest request)
-    -  (? пока нет) добавление поддержки запроса на удаление на удаление async Task<IActionResult> Delete(  [FromRoute] Guid id)
+    -  (-) добавление поддержки запроса на удаление комнат async Task<IActionResult> Delete(  [FromRoute] Guid id) не реализовывалось, чтобы не связываться на этом этапе с касдадным удалением ключей. т.к. в задании нет, а как сделать в общем то понятно, но должно быть некое решение на уровне архитектуры приложения, котогрого НЕТ ЯВНО
  
