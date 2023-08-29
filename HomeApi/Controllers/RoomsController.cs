@@ -71,21 +71,13 @@ namespace HomeApi.Controllers
             var room = await _repository.GetRoomById(id);
             if (room == null)
                 return StatusCode(400, $"Ошибка: Комната {request.NewName} не подключена. Сначала подключите комнату!");
-
-            //var device = await _devices.GetDeviceById(id);
-            //if (device == null)
-            //    return StatusCode(400, $"Ошибка: Устройство с идентификатором {id} не существует.");
-
-            //var withSameName = await _devices.GetDeviceByName(request.NewName);
-            //if (withSameName != null)
-            //    return StatusCode(400, $"Ошибка: Устройство с именем {request.NewName} уже подключено. Выберите другое имя!");
-
+                        
             await _repository.UpdateRoom(
                 room,
                 new UpdateRoomQuery(request.NewName, request.NewArea, request.NewGasConnected, request.NewVoltage)
             );
 
-            return StatusCode(200, $"Комната обновленf! Имя - {room.Name}, площадь - {room.Area}, напряжение - {room.Voltage}, ufp - {room.GasConnected}");
+            return StatusCode(200, $"Комната обновлена! Имя - {room.Name}, площадь - {room.Area}, напряжение - {room.Voltage}, газ - {room.GasConnected}");
         }
     }
 }
