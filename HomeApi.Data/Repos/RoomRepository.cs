@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using HomeApi.Data.Models;
 using HomeApi.Data.Queries;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace HomeApi.Data.Repos
 {
@@ -70,8 +71,10 @@ namespace HomeApi.Data.Repos
                 room.Area = query.NewArea;
             if (query.NewVoltage> 0)
                 room.Voltage = query.NewVoltage;
-            // проверку (для bollean)  IsNotNull предварительно сделалием в классе валидации ввода            
-                room.GasConnected = query.NewGasConnected;
+            // проверку (для bollean)  IsNotNull предварительно сделалием в классе валидации ввода
+            //var strBoolVal = query.NewGasConnected.ToString().ToLower();
+            if (query.NewGasConnected) room.GasConnected = true;
+            else room.GasConnected = false;
 
             // Добавляем в базу 
             var entry = _context.Entry(room);
