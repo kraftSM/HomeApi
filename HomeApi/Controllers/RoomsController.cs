@@ -68,7 +68,7 @@ namespace HomeApi.Controllers
             [FromRoute] Guid id,
             [FromBody] EditRoomRequest request)
         {
-            var room = await _repository.GetRoomByName(request.NewName);
+            var room = await _repository.GetRoomById(id);
             if (room == null)
                 return StatusCode(400, $"Ошибка: Комната {request.NewName} не подключена. Сначала подключите комнату!");
 
@@ -80,11 +80,10 @@ namespace HomeApi.Controllers
             //if (withSameName != null)
             //    return StatusCode(400, $"Ошибка: Устройство с именем {request.NewName} уже подключено. Выберите другое имя!");
 
-            //await _devices.UpdateDevice(
-            //    device,
-            //    room,
-            //    new UpdateDeviceQuery(request.NewName, request.NewSerial)
-            //);
+            await _repository.UpdateRoom(
+                room,
+                new UpdateRoomQuery(request.NewName, request.NewArea, request.NewGasConnected, request.NewVoltage)
+            );
 
             return StatusCode(200, $"Комната обновленf! Имя - {room.Name}, Территория номер - {room.Area}");
         }

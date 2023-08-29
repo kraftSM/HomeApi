@@ -98,14 +98,12 @@ namespace HomeApi.Controllers
             return StatusCode(200, $"Устройство обновлено! Имя - {device.Name}, Серийный номер - {device.SerialNumber},  Комната подключения - {device.Room.Name}");
         }
         /// <summary>
-        /// Обновление существующего устройства
+        /// Удаление существующего устройства
         /// </summary>
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> Delete(
             [FromRoute] Guid id)
-            //[FromRoute] Guid id,
-            //[FromBody] EditDeviceRequest request)
         {
                
             var device = await _devices.GetDeviceById(id);
